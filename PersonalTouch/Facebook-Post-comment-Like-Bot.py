@@ -29,7 +29,7 @@ chrome_options.add_argument(f"user-data-dir={scriptDirectory}\\userdata")
 
 # Setting the driver
 global driver
-driver = webdriver.Chrome("./chromedriver.exe", chrome_options=chrome_options)
+driver = webdriver.Chrome("../chromedriver.exe", chrome_options=chrome_options)
 driver.get("https://facebook.com")
 
 
@@ -47,6 +47,8 @@ def login():
 
     except:
         pass
+
+login()
 
 
 def navigateCommentWhenNavigateCommentNotFound():
@@ -100,18 +102,19 @@ def navigateLike():
 
     print("Like Function Working")
 
+
 def findAndRemoveDuplicate():
-    with open('TextFiles/GroupFile/groupPostDoneLikeList.txt', 'r') as file:
+    with open('../TextFiles/GroupFile/groupPostDoneLikeList.txt', 'r') as file:
         groupLinks = file.readlines()
         groupLinkSet = set(groupLinks)
         # This loop Expression detect all duplicate item inside list
         duplicateLinks = [item for item, count in collections.Counter(groupLinks).items() if count > 1]
         duplicateLinkSet = set(duplicateLinks)
         uniqueFile = groupLinkSet - duplicateLinkSet
-        with open('TextFiles/GroupFile/groupPostCommentLikeDoneList.txt', 'r') as file:
+        with open('../TextFiles/GroupFile/groupPostCommentLikeDoneList.txt', 'r') as file:
             sortedGroupLinks = file.readlines()
             sortedGroupLinksSet = set(sortedGroupLinks)
-        with open('TextFiles/GroupFile/groupPostDoneLikeList.txt', 'w') as file:
+        with open('../TextFiles/GroupFile/groupPostDoneLikeList.txt', 'w') as file:
             # this line delete 2 set String which I store in variable
             sortedUniqueFile = groupLinkSet - sortedGroupLinksSet
             file.writelines(sortedUniqueFile)
@@ -126,7 +129,7 @@ findAndRemoveDuplicate()
 driver.implicitly_wait(20)
 time.sleep(5)
 
-with open('TextFiles/GroupFile/groupPostDoneLikeList.txt') as file:
+with open('../TextFiles/GroupFile/groupPostDoneLikeList.txt') as file:
     lines = file.readlines()
     print("We will working with " + str(len(lines)) + " Post")
     index = []
@@ -153,12 +156,12 @@ with open('TextFiles/GroupFile/groupPostDoneLikeList.txt') as file:
 
         line_index = 3
         lines = None
-        with open('TextFiles/GroupFile/groupPostCommentLikeDoneList.txt', 'r') as file_handler:
+        with open('../TextFiles/GroupFile/groupPostCommentLikeDoneList.txt', 'r') as file_handler:
             lines = file_handler.readlines()
 
         lines.insert(line_index, groupUrlForList)
 
-        with open('TextFiles/GroupFile/groupPostCommentLikeDoneList.txt', 'w') as file_handler:
+        with open('../TextFiles/GroupFile/groupPostCommentLikeDoneList.txt', 'w') as file_handler:
             file_handler.writelines(lines)
 
 # Time Counting
